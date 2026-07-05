@@ -1,0 +1,367 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:'Poppins',sans-serif;
+}
+body{
+    background:#f4f7fb;
+    color:#222;
+    transition:.4s;
+}
+header{
+    background:#2563eb;
+    color:#fff;
+    padding:18px 40px;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    box-shadow:0 3px 8px rgba(0,0,0,.2);
+}
+header h1{
+    font-size:28px;
+    display:flex;
+    gap:10px;
+    align-items:center;
+}
+
+#darkModeBtn{
+    background:#fff;
+    color:#2563eb;
+    border:none;
+    width:45px;
+    height:45px;
+    border-radius:50%;
+    cursor:pointer;
+    font-size:18px;
+}
+
+.container{
+    width:90%;
+    max-width:900px;
+    margin:35px auto;
+    background:#fff;
+    padding:30px;
+    border-radius:15px;
+    box-shadow:0 10px 25px rgba(0,0,0,.1);
+}
+
+.input-group{
+    margin-bottom:20px;
+}
+
+.input-group label{
+    display:block;
+    font-weight:600;
+    margin-bottom:8px;
+}
+
+input,
+textarea{
+    width:100%;
+    padding:12px;
+    border:1px solid #ccc;
+    border-radius:8px;
+    font-size:15px;
+    transition:.3s;
+}
+
+input:focus,
+textarea:focus{
+    border-color:#2563eb;
+    outline:none;
+    box-shadow:0 0 5px rgba(37,99,235,.4);
+}
+
+textarea{
+    resize:none;
+}
+
+#count{
+    text-align:right;
+    margin-top:5px;
+    color:#666;
+    font-size:13px;
+}
+.buttons{
+    display:flex;
+    gap:15px;
+    margin-top:20px;
+}
+
+.buttons button{
+    flex:1;
+    padding:14px;
+    border:none;
+    border-radius:8px;
+    font-size:16px;
+    font-weight:600;
+    cursor:pointer;
+    transition:0.3s;
+}
+
+button[type="submit"]{
+    background:#2563eb;
+    color:white;
+}
+
+button[type="submit"]:hover{
+    background:#1d4ed8;
+}
+
+#resetBtn{
+    background:#ef4444;
+    color:white;
+}
+
+#resetBtn:hover{
+    background:#dc2626;
+}
+.result{
+    margin-top:35px;
+}
+
+.result h2{
+    margin-bottom:15px;
+    color:#2563eb;
+}
+
+#output{
+    min-height:260px;
+    padding:20px;
+    background:#f8fafc;
+    border:2px solid #dbeafe;
+    border-radius:10px;
+    white-space:pre-wrap;
+    line-height:1.7;
+    overflow:auto;
+}
+
+.actions{
+    display:flex;
+    gap:15px;
+    margin-top:20px;
+}
+
+.actions button{
+    flex:1;
+    padding:13px;
+    border:none;
+    border-radius:8px;
+    cursor:pointer;
+    font-size:15px;
+    font-weight:600;
+    transition:.3s;
+}
+
+#copyBtn{
+    background:#10b981;
+    color:white;
+}
+
+#copyBtn:hover{
+    background:#059669;
+}
+
+#downloadBtn{
+    background:#f59e0b;
+    color:white;
+}
+
+#downloadBtn:hover{
+    background:#d97706;
+}
+
+#loading{
+    display:none;
+    text-align:center;
+    margin:30px 0;
+}
+
+.loader{
+    width:55px;
+    height:55px;
+    border:6px solid #ddd;
+    border-top:6px solid #2563eb;
+    border-radius:50%;
+    margin:auto;
+    animation:spin 1s linear infinite;
+}
+
+@keyframes spin{
+
+0%{
+transform:rotate(0deg);
+}
+
+100%{
+transform:rotate(360deg);
+}
+
+}
+#toast{
+    position:fixed;
+    bottom:30px;
+    right:30px;
+    background:#10b981;
+    color:white;
+    padding:15px 25px;
+    border-radius:8px;
+    font-weight:600;
+    display:none;
+    box-shadow:0 8px 20px rgba(0,0,0,.2);
+    z-index:999;
+}
+
+body.dark{
+    background:#121212;
+    color:#f1f1f1;
+}
+
+body.dark header{
+    background:#1e293b;
+}
+
+body.dark .container{
+    background:#1f2937;
+    color:#fff;
+}
+
+body.dark input,
+body.dark textarea{
+    background:#374151;
+    color:#fff;
+    border:1px solid #555;
+}
+
+body.dark input::placeholder,
+body.dark textarea::placeholder{
+    color:#cbd5e1;
+}
+
+body.dark #output{
+    background:#111827;
+    color:#fff;
+    border:2px solid #334155;
+}
+
+body.dark #count{
+    color:#ddd;
+}
+
+body.dark #darkModeBtn{
+    background:#facc15;
+    color:#000;
+}
+.container{
+    transition:.3s;
+}
+
+.container:hover{
+    transform:translateY(-4px);
+}
+
+button:hover{
+    transform:translateY(-2px);
+}
+
+input,
+textarea,
+button{
+    transition:all .3s ease;
+}
+::-webkit-scrollbar{
+    width:10px;
+}
+
+::-webkit-scrollbar-track{
+    background:#e5e7eb;
+}
+
+::-webkit-scrollbar-thumb{
+    background:#2563eb;
+    border-radius:20px;
+}
+
+::-webkit-scrollbar-thumb:hover{
+    background:#1d4ed8;
+}
+@media(max-width:768px){
+
+header{
+    padding:15px 20px;
+}
+
+header h1{
+    font-size:20px;
+}
+
+.container{
+    width:95%;
+    padding:20px;
+}
+
+.buttons,
+.actions{
+    flex-direction:column;
+}
+
+button{
+    width:100%;
+}
+
+#output{
+    min-height:220px;
+}
+
+}
+
+@media(max-width:480px){
+
+header h1{
+    font-size:18px;
+}
+
+input,
+textarea{
+    font-size:14px;
+}
+
+.buttons button,
+.actions button{
+    font-size:14px;
+    padding:12px;
+}
+
+#toast{
+    right:10px;
+    left:10px;
+    bottom:20px;
+    text-align:center;
+}
+
+}
+@keyframes fadeIn{
+
+from{
+    opacity:0;
+    transform:translateY(10px);
+}
+
+to{
+    opacity:1;
+    transform:translateY(0);
+}
+
+}
+
+.result{
+    animation:fadeIn .5s ease;
+}
+
+#loading p{
+    margin-top:10px;
+    font-weight:600;
+    color:#2563eb;
+}

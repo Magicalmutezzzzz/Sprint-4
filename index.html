@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Cover Letter Generator</title>
+    <link rel="stylesheet" href="style1.css">
+    <link rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/4.4.168/pdf.min.js"></script>
+</head>
+<body>
+<header>
+<h1>
+<i class="fa-solid fa-robot"></i>
+AI Cover Letter Generator
+</h1>
+<button id="darkModeBtn">
+<i class="fa-solid fa-moon"></i>
+</button>
+</header>
+<div class="container">
+<form id="coverForm">
+<div class="input-group">
+<label>Candidate Name</label>
+<input
+type="text"
+id="name"
+placeholder="Enter your name"
+required>
+</div>
+<div class="input-group">
+<label>Job Role</label>
+<input
+type="text"
+id="role"
+placeholder="Frontend Developer"
+required>
+</div>
+<div class="input-group">
+<label>Target Company</label>
+<input
+type="text"
+id="company"
+placeholder="Google"
+required>
+</div>
+<div class="input-group">
+<label>Key Skills</label>
+<textarea
+id="skills"
+rows="5"
+maxlength="500"
+placeholder="HTML, CSS, JavaScript, React..."
+required></textarea>
+<p id="count">
+0 / 500
+</p>
+</div>
+<div class="input-group">
+<label>Upload Resume (PDF)</label>
+<input
+type="file"
+id="resume"
+accept=".pdf">
+</div>
+<div class="buttons">
+<button type="submit">
+<i class="fa-solid fa-wand-magic-sparkles"></i>
+Generate
+</button>
+<button
+type="reset"
+id="resetBtn">
+Reset
+</button>
+</div>
+</form>
+<div id="loading">
+<div class="loader"></div>
+<p>Generating...</p>
+</div>
+<div class="result">
+<h2>
+Generated Cover Letter
+</h2>
+<div id="output">
+Your cover letter will appear here...
+</div>
+<div class="actions">
+<button id="copyBtn">
+<i class="fa-solid fa-copy"></i>
+Copy
+</button>
+<button id="downloadBtn">
+<i class="fa-solid fa-file-pdf"></i>
+Download PDF
+</button>
+</div>
+</div>
+</div>
+<div id="toast">
+Copied Successfully!
+</div>
+<script src="script.js"></script>
+</body>
+</html>
