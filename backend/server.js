@@ -2,37 +2,64 @@ import express from "express";
 import cors from "cors";
 import dotenv from "dotenv";
 import multer from "multer";
+import path from "path";
+import { fileURLToPath } from "url";
 import { GoogleGenAI } from "@google/genai";
 
 dotenv.config();
 
 const app = express();
-const PORT = process.env.PORT || 5000;
+const PORT = process.env.PORT || 8000;
 
+// ================================
+// Path Configuration
+// ================================
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
+// Serve frontend files from Sprint-4 root
+app.use(express.static(path.join(__dirname, "..")));
+
+// ================================
 // Middleware
+// ================================
+
 app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-// Multer configuration
+// ================================
+// Multer Configuration
+// ================================
+
 const upload = multer({
-  dest: "uploads/",
-  limits: {
-    fileSize: 5 * 1024 * 1024
-  }
+    dest: "uploads/",
+    limits: {
+        fileSize: 5 * 1024 * 1024
+    }
 });
 
-// Gemini Client
+// ================================
+// Gemini Configuration
+// ================================
+
 const ai = new GoogleGenAI({
-  apiKey: process.env.GEMINI_API_KEY
+    apiKey: process.env.GEMINI_API_KEY
 });
 
+// ================================
 // Home Route
+// ================================
+
 app.get("/", (req, res) => {
-  res.send("Backend Running 🚀");
+    res.sendFile(path.join(__dirname, "..", "index.html"));
 });
 
+// ================================
 // Generate Cover Letter
+// ================================
+
 app.post("/generate", upload.single("resume"), async (req, res) => {
 
     console.log("📩 /generate called");
@@ -43,7 +70,6 @@ app.post("/generate", upload.single("resume"), async (req, res) => {
 
         const { name, role, company, skills } = req.body;
 
-        // Validate required fields
         if (!name || !role || !company || !skills) {
             return res.status(400).json({
                 success: false,
@@ -51,7 +77,6 @@ app.post("/generate", upload.single("resume"), async (req, res) => {
             });
         }
 
-        // Optional: Check if resume was uploaded
         let resumeInfo = "";
 
         if (req.file) {
@@ -59,7 +84,6 @@ app.post("/generate", upload.single("resume"), async (req, res) => {
             console.log(resumeInfo);
         }
 
-        // Prompt
         const prompt = `
 You are an experienced HR recruiter.
 
@@ -80,7 +104,7 @@ Instructions:
 - Do not use placeholders.
 - Start with today's date.
 - Address the hiring manager professionally.
-- End with:
+- End politely with:
 
 Sincerely,
 ${name}
@@ -88,7 +112,6 @@ ${name}
 Return ONLY the cover letter.
 `;
 
-        // Gemini API Call
         const response = await ai.models.generateContent({
             model: "gemini-2.5-flash",
             contents: prompt
@@ -99,7 +122,7 @@ Return ONLY the cover letter.
             response.candidates?.[0]?.content?.parts?.[0]?.text ||
             "No response generated.";
 
-        res.status(200).json({
+        res.json({
             success: true,
             letter
         });
@@ -117,6 +140,18 @@ Return ONLY the cover letter.
 
 });
 
+// ================================
+// 404 Handler
+// ================================
+
+app.use((req, res) => {
+    res.status(404).send("404 - Page Not Found");
+});
+
+// ================================
+// Start Server
+// ================================
+
 app.listen(PORT, () => {
-  console.log(`🚀 Server running at http://localhost:${PORT}`);
+    console.log(`🚀 Server running on port ${PORT}`);
 });

@@ -15,7 +15,10 @@ const downloadBtn = document.getElementById("downloadBtn");
 const resumeInput = document.getElementById("resume");
 
 // Backend URL
-const API_URL = "http://localhost:8000/generate";
+const API_URL =
+    window.location.hostname === "localhost"
+        ? "http://localhost:8000/generate"
+        : "/generate";
 
 // Store Generated Letter
 let generatedLetter = "";
