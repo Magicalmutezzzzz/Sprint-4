@@ -8,8 +8,16 @@ dotenv.config();
 const app = express();
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
-app.use(express.static(__dirname));
-app.use(cors());
+
+app.use(cors({
+    origin: [
+        "https://sprint-4-pi.vercel.app",
+        "http://localhost:5500",
+        "http://127.0.0.1:5500"
+    ]
+}));
+
+
 app.use(express.json());
 if (!process.env.GEMINI_API_KEY) {
   console.error("❌ GEMINI_API_KEY is missing!");
@@ -17,9 +25,14 @@ if (!process.env.GEMINI_API_KEY) {
 const ai = new GoogleGenAI({
   apiKey: process.env.GEMINI_API_KEY,
 });
+
 app.get("/", (req, res) => {
-  res.sendFile(path.join(__dirname, "index.html"));
+  res.json({
+    success: true,
+    message: "AI Cover Letter Backend Running 🚀"
+  });
 });
+
 app.post("/generate", async (req, res) => {
   try {
     console.log("Generate route called");
@@ -54,12 +67,16 @@ Return only the cover letter.
       result.text ||
       result.candidates?.[0]?.content?.parts?.[0]?.text ||
       "No response generated.";
-    res.json({ text });
+    res.json({
+        success: true,
+        letter: text
+    });
   } catch (error) {
     console.error("Gemini Error:", error);
 
     res.status(500).json({
-      text: error.message || "Failed to generate cover letter.",
+      success: false,
+      message: error.message || "Failed to generate cover letter.",
     });
   }
 });
